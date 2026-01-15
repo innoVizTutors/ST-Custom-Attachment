@@ -6,9 +6,32 @@ document.body.appendChild(el);
 el.innerHTML = `		
 	<x-1851424-doli-comp
 		mode="standard"
-		wafer="33"
+		wafer="25"
+		operation="update"
+		selected='{"2":true,"5":true,"7":true}'
+		>
+	</x-1851424-doli-comp>
+`;
+
+/*
+el.innerHTML = `		
+	<x-1851424-doli-comp
+		mode="combine"
+		wafer="25"
 		operation="create"
-		selected='{"2":true,"5":true,"7":true}'>
+		editablevalues='{"2":"4","5":"10"}'
+		>
+	</x-1851424-doli-comp>
+`;
+*/
+/*
+el.innerHTML = `		
+	<x-1851424-doli-comp
+		mode="combine"
+		wafer="25"
+		operation="create"
+		>
 	
 	</x-1851424-doli-comp>
 `;
+*/

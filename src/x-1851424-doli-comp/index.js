@@ -12,7 +12,7 @@ const view = (state, { updateProperties }) => {
 		mode = "standard",
 		wafer = 0,
 		selected = {},
-		editableValues = {},
+		editablevalues = {},
 		editingIndex = null,
 		editingValue = "",
 		operation = "create",
@@ -58,9 +58,9 @@ const view = (state, { updateProperties }) => {
 	const saveEdit = (index, value) => {
 		// If the input is empty, treat as reset to original
 		if (value === "" || value === null || value === undefined) {
-			const updated = { ...editableValues };
+			const updated = { ...editablevalues };
 			delete updated[index];
-			updateProperties({ editableValues: updated, editingIndex: null, editingValue: "" });
+			updateProperties({ editablevalues: updated, editingIndex: null, editingValue: "" });
 			return;
 		}
 
@@ -68,15 +68,15 @@ const view = (state, { updateProperties }) => {
 
 		// If not a number or out of range, reset to original
 		if (isNaN(num) || num < 1 || num > 100) {
-			const updated = { ...editableValues };
+			const updated = { ...editablevalues };
 			delete updated[index];
-			updateProperties({ editableValues: updated, editingIndex: null, editingValue: "" });
+			updateProperties({ editablevalues: updated, editingIndex: null, editingValue: "" });
 			return;
 		}
 
-		const updated = { ...editableValues };
+		const updated = { ...editablevalues };
 		updated[index] = num;
-		updateProperties({ editableValues: updated, editingIndex: null, editingValue: "" });
+		updateProperties({ editablevalues: updated, editingIndex: null, editingValue: "" });
 	};
 
 	const cancelEdit = () => {
@@ -120,18 +120,18 @@ const view = (state, { updateProperties }) => {
 										}
 									});
 
-									const filteredEditableValues = {};
-									Object.keys(editableValues).forEach((key) => {
+									const filterededitablevalues = {};
+									Object.keys(editablevalues).forEach((key) => {
 										const numKey = parseInt(key, 10);
 										if (numKey >= 1 && numKey <= val) {
-											filteredEditableValues[key] = editableValues[key];
+											filterededitablevalues[key] = editablevalues[key];
 										}
 									});
 
 									updateProperties({
 										wafer: val,
 										selected: filteredSelected,
-										editableValues: filteredEditableValues,
+										editablevalues: filterededitablevalues,
 										editingIndex: null,
 										editingValue: ""
 									});
@@ -153,12 +153,12 @@ const view = (state, { updateProperties }) => {
 					Array.from({ length: total }, (_, i) => {
 						const index = i + 1;
 						const isSelected = !!selectedObj[index];
-						const isEdited = mode === "combine" && editableValues[index] !== undefined;
+						const isEdited = mode === "combine" && editablevalues[index] !== undefined;
 						// In combine mode, only use isEdited for coloring
 						const boxClass = mode === "combine"
 							? `wafer-box${isEdited ? " pink" : ""}`
 							: `wafer-box${isSelected ? " pink" : ""}`;
-						const currentValue = editableValues[index] !== undefined ? editableValues[index] : index;
+						const currentValue = editablevalues[index] !== undefined ? editablevalues[index] : index;
 						const isEditing = editingIndex === index;
 
 						return (
@@ -175,8 +175,8 @@ const view = (state, { updateProperties }) => {
 										updateProperties({
 											editingIndex: index,
 											editingValue:
-												editableValues[index] !== undefined
-													? editableValues[index]
+												editablevalues[index] !== undefined
+													? editablevalues[index]
 													: index,
 										});
 									}
@@ -258,29 +258,7 @@ const view = (state, { updateProperties }) => {
 					</div> 	
 					)
 				}
-				{
-					/*
-					<div style={{ marginTop: "10px" }}>
-					{
-						mode === "combine" ? (
-							<div>
-								<strong>Edited Values: </strong>
-								{(() => {
-								const edited = Object.entries(editableValues)
-								.map(([index, value]) => `${index}: ${value}`);
-								return edited.length ? `{ ${edited.join(", ")} }` : "{}";
-								})()}
-							</div>
-						) : (
-							<div>
-								<strong>Selected Wafers:</strong>{" "}
-								{JSON.stringify(selectedKeys) || "[]"} ({selectedKeys.length}/{total})
-							</div>
-						)
-					}
-					</div>
-					*/
-				}
+				
 			</div>
 		</div>
 	);
@@ -290,35 +268,47 @@ const view = (state, { updateProperties }) => {
 createCustomElement("x-1851424-doli-comp", {
 	transformState(state) {
 		const { properties } = state;
-		return {...properties};
+		let { selected, editablevalues } = properties;
+
+		// Parse selected
+		if (typeof selected === "string") {
+			try {
+				const obj = JSON.parse(selected);
+				if (obj && typeof obj === "object") properties.selected = obj;
+			} catch {
+				properties.selected = {};
+			}
+		}
+
+		// Parse editablevalues
+		if (typeof editablevalues === "string") {
+			try {
+				const obj = JSON.parse(editablevalues);
+				properties.editablevalues = obj;
+			} catch {
+				properties.editablevalues = {};
+			}
+		}
+
+
+		return { ...properties };
 	},
+
 	renderer: { type: snabbdom },
 	view,
 	styles,
 	properties: {
 		mode: { default: "standard" },
 		wafer: { default: 0 },
-		selected: {
-			default: {},
-			observed: true,
-			schema: {
-				type: "object",
-				additionalProperties: { type: "boolean" },
-				label: "Selected Wafers",
-				description: "Object with wafer numbers as keys and true as value",
-			},
-		},
-		editableValues: { default: "", observed: true },
-		editingIndex: { default: null, observed: true },
-		editingValue: { default: "", observed: true },
+		selected: { default: {}, observed: true },
+		editablevalues: { default: {}, observed: true },
+		editingIndex: { default: null },
+		editingValue: { default: "" },
 		operation: { default: "create" },
 		readonly: { default: false },
 	},
-	
-	// ✅ Dispatch once when component first mounts
-	connectedCallback(coeffects) {
-		const { dispatch, state } = coeffects;
 
+	connectedCallback({ dispatch, state }) {
 		setTimeout(() => {
 			const payload = { ...state.properties };
 			console.log("📤 Initial payload dispatched:", payload);
@@ -326,18 +316,15 @@ createCustomElement("x-1851424-doli-comp", {
 			dispatch("SEND_COMP_DATA#VALUE_SET", {
 				mode: payload.mode,
 				wafer: payload.wafer,
-				selected: Object.keys(payload.selected || {})
-					.filter(k => payload.selected[k])
-					.join(","),
+				selected: JSON.stringify(payload.selected),
+				editablevalues: JSON.stringify(payload.editablevalues),
 				operation: payload.operation,
 				readonly: payload.readonly
 			});
-		}, 0);
+		}, 100);
 	},
 
-
 	actionHandlers: {
-		// ✅ Trigger when any property changes (from parent or UI Builder)
 		[COMPONENT_PROPERTY_CHANGED]({ properties, dispatch }) {
 			const payload = { ...properties };
 			console.log("📤 Updated payload dispatched:", payload);
@@ -345,13 +332,11 @@ createCustomElement("x-1851424-doli-comp", {
 			dispatch("SEND_COMP_DATA#VALUE_SET", {
 				mode: payload.mode,
 				wafer: payload.wafer,
-				selected: Object.keys(payload.selected || {})
-					.filter(k => payload.selected[k])
-					.join(","),
+				selected: JSON.stringify(payload.selected),
+				editablevalues: JSON.stringify(payload.editablevalues),
 				operation: payload.operation,
 				readonly: payload.readonly
 			});
 		}
 	}
-	
 });
