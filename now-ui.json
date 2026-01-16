@@ -6,7 +6,7 @@
         {
           "name": "VALUE_SET",
           "action": "SEND_COMP_DATA#VALUE_SET",
-          "label": "Send Component Data",
+          "label": "Send component data",
           "payload": [
             {
               "name": "mode",
@@ -24,8 +24,8 @@
               "type": "string"
             },
             {
-              "name": "editablevalues",
-              "label": "Editable",
+              "name": "edited",
+              "label": "Edited",
               "type": "string"
             },
             {
@@ -47,8 +47,8 @@
           "global.landing-page"
         ],
         "label": "Doli Wafer Component",
-        "tileIcon": "./tile-icon/13.svg",
-        "description": "DOLI Wafer Component",
+        "tileIcon": "./tile-icon/1.svg",
+        "description": "DOLI Wafer list Component",
         "category": "primitive"
       },
       "properties": [
@@ -65,11 +65,6 @@
         {
           "name": "selected",
           "label": "Selected",
-          "fieldType": "string"
-        },
-        {
-          "name": "editablevalues",
-          "label": "Editable",
           "fieldType": "string"
         },
         {

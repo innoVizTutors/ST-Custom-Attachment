@@ -268,72 +268,112 @@ const view = (state, { updateProperties }) => {
 createCustomElement("x-1851424-doli-comp", {
 	transformState(state) {
 		const { properties } = state;
-		let { selected, editablevalues } = properties;
+		let { selected } = properties;
 
-		// Parse selected
+
 		if (typeof selected === "string") {
 			try {
-				const obj = JSON.parse(selected);
-				if (obj && typeof obj === "object") properties.selected = obj;
-			} catch {
+				// Remove curly braces and quotes, split into numbers
+				const clean = selected
+					.replace(/[\{\}\"]/g, "")   // remove {, }, "
+					.split(",")                 // split by comma
+					.map(s => s.trim())         // trim spaces
+					.filter(Boolean);           // remove empty strings
+
+				// Convert to object format
+				const selectedObj = {};
+				clean.forEach(num => {
+					const n = parseInt(num, 10);
+					if (!isNaN(n)) selectedObj[n] = true;
+				});
+				properties.selected = selectedObj;
+			} catch (e) {
+				console.warn("⚠️ Could not parse selected property:", selected);
 				properties.selected = {};
 			}
 		}
 
-		// Parse editablevalues
-		if (typeof editablevalues === "string") {
-			try {
-				const obj = JSON.parse(editablevalues);
-				properties.editablevalues = obj;
-			} catch {
-				properties.editablevalues = {};
-			}
-		}
-
-
 		return { ...properties };
 	},
-
 	renderer: { type: snabbdom },
 	view,
 	styles,
 	properties: {
 		mode: { default: "standard" },
 		wafer: { default: 0 },
-		selected: { default: {}, observed: true },
-		editablevalues: { default: {}, observed: true },
-		editingIndex: { default: null },
-		editingValue: { default: "" },
+		selected: {
+			default: {},
+			observed: true,
+			schema: {
+				type: "object",
+				additionalProperties: { type: "boolean" },
+				label: "Selected Wafers",
+				description: "Object with wafer numbers as keys and true as value",
+			},
+		},
+		editablevalues: { default: "", observed: true },
+		editingIndex: { default: null, observed: true },
+		editingValue: { default: "", observed: true },
 		operation: { default: "create" },
 		readonly: { default: false },
 	},
+	
+	// ✅ Dispatch once when component first mounts
+	connectedCallback(coeffects) {
+		const { dispatch, state } = coeffects;
 
-	connectedCallback({ dispatch, state }) {
 		setTimeout(() => {
 			const payload = { ...state.properties };
 			console.log("📤 Initial payload dispatched:", payload);
 
+			let selectedData = "";
+			if (payload.mode === "combine") {
+				const editableEntries = Object.entries(payload.editablevalues || {});
+				selectedData = editableEntries
+					.map(([key, val]) => `${key}:${val}`)
+					.join(",");
+			} else {
+				selectedData = Object.keys(payload.selected || {})
+					.filter(k => payload.selected[k])
+					.join(",");
+			}
+
 			dispatch("SEND_COMP_DATA#VALUE_SET", {
 				mode: payload.mode,
 				wafer: payload.wafer,
-				selected: JSON.stringify(payload.selected),
-				editablevalues: JSON.stringify(payload.editablevalues),
+				selected: selectedData,
+				edited: payload.editablevalues,
 				operation: payload.operation,
 				readonly: payload.readonly
 			});
-		}, 100);
+		}, 0);
 	},
 
+
+
 	actionHandlers: {
+		// ✅ Trigger when any property changes (from parent or UI Builder)
 		[COMPONENT_PROPERTY_CHANGED]({ properties, dispatch }) {
 			const payload = { ...properties };
 			console.log("📤 Updated payload dispatched:", payload);
 
+			let selectedData = "";
+			if (payload.mode === "combine") {
+				const editableEntries = Object.entries(payload.editablevalues || {});
+				selectedData = editableEntries
+					.map(([key, val]) => `${key}:${val}`)
+					.join(",");
+			} else {
+				selectedData = Object.keys(payload.selected || {})
+					.filter(k => payload.selected[k])
+					.join(",");
+			}
+
 			dispatch("SEND_COMP_DATA#VALUE_SET", {
 				mode: payload.mode,
 				wafer: payload.wafer,
-				selected: JSON.stringify(payload.selected),
-				editablevalues: JSON.stringify(payload.editablevalues),
+				selected: selectedData,
+				edited: payload.editablevalues,
 				operation: payload.operation,
 				readonly: payload.readonly
 			});
