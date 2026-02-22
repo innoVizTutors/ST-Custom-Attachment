@@ -9,8 +9,13 @@
         <version>5.1.0.1</version>
     </parent>
 
+<<<<<<< HEAD
     <artifactId>doli-comp</artifactId>
     <description>Custom doli component</description>
+=======
+    <artifactId>doli-custom-attachment</artifactId>
+    <description>Doli Custom Component for  Attachments</description>
+>>>>>>> 4111146 (Doli Validations)
     <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -20,7 +25,11 @@
     </scm>
 
     <properties>
+<<<<<<< HEAD
         <plugin.dir>com.doli_comp</plugin.dir>
+=======
+        <plugin.dir>com.doli_custom_attachment</plugin.dir>
+>>>>>>> 4111146 (Doli Validations)
         <sauce.tunnelId>${user.name}@localhost</sauce.tunnelId>
         <jenkins.credentials.saucelabs>tectonic-sauce-credentials</jenkins.credentials.saucelabs>
         <node.verify_cmd>run verify --if-present</node.verify_cmd>

@@ -1,5 +1,6 @@
 {
   "components": {
+<<<<<<< HEAD
     "x-1851424-doli-comp": {
       "innerComponents": [],
       "actions": [
@@ -49,10 +50,23 @@
         "label": "Doli Wafer Component",
         "tileIcon": "./tile-icon/1.svg",
         "description": "DOLI Wafer list Component",
+=======
+    "x-1621019-doli-custom-attachment": {
+      "innerComponents": [],
+      "uiBuilder": {
+        "associatedTypes": [
+          "global.core", 
+          "global.landing-page"
+        ],
+        "label": "DOLI Custom Attachment",
+        "tileIcon": "./tile-icon/generic-tile-icon.svg",
+        "description": "DOLI Custom Attachment component for ServiceNow",
+>>>>>>> 4111146 (Doli Validations)
         "category": "primitive"
       },
       "properties": [
         {
+<<<<<<< HEAD
           "name": "mode",
           "label": "Mode",
           "fieldType": "string"
@@ -76,9 +90,56 @@
           "name": "readonly",
           "label": "Readonly",
           "fieldType": "string"
+=======
+          "name": "recordId",
+          "label": "Record ID",
+          "fieldType": "string"
+        },
+        {
+          "name": "tableName",
+          "label": "Table Name",
+          "fieldType": "string"
+        },
+        {
+          "name": "readOnly",
+          "label": "Read Only",
+          "fieldType": "string"
+        },
+        {
+          "name": "extensions",
+          "label": "Allowed Extensions",
+          "fieldType": "string"
+        }
+      ],
+      "actions": [],
+      "dispatches": [
+        {
+          "name": "FETCH_PERMISSIONS",
+          "description": "Fetch user permissions for attachments"
+        },
+        {
+          "name": "FETCH_ATTACHMENTS",
+          "description": "Fetch list of attachments for the record"
+        },
+        {
+          "name": "UPLOAD_ATTACHMENT",
+          "description": "Upload a new attachment"
+        },
+        {
+          "name": "DELETE_ATTACHMENT_API",
+          "description": "Delete an attachment"
+        },
+        {
+          "name": "ADD_COMMENT",
+          "description": "Add work note to the record"
+>>>>>>> 4111146 (Doli Validations)
         }
       ]
     }
   },
+<<<<<<< HEAD
   "scopeName": "x_1851424_doli_c_0"
+=======
+  "scopeName": "x_1621019_doli_c_1"
+>>>>>>> 4111146 (Doli Validations)
 }
