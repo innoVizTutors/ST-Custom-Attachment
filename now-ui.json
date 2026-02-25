@@ -1,56 +1,5 @@
 {
   "components": {
-<<<<<<< HEAD
-    "x-1851424-doli-comp": {
-      "innerComponents": [],
-      "actions": [
-        {
-          "name": "VALUE_SET",
-          "action": "SEND_COMP_DATA#VALUE_SET",
-          "label": "Send component data",
-          "payload": [
-            {
-              "name": "mode",
-              "label": "Mode",
-              "type": "string"
-            },
-            {
-              "name": "wafer",
-              "label": "Wafer",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "label": "Selected",
-              "type": "string"
-            },
-            {
-              "name": "edited",
-              "label": "Edited",
-              "type": "string"
-            },
-            {
-              "name": "operation",
-              "label": "Operation",
-              "type": "string"
-            },
-            {
-              "name": "readonly",
-              "label": "Readonly",
-              "type": "string"
-            }
-          ]
-        }
-      ],
-      "uiBuilder": {
-        "associatedTypes": [
-          "global.core",
-          "global.landing-page"
-        ],
-        "label": "Doli Wafer Component",
-        "tileIcon": "./tile-icon/1.svg",
-        "description": "DOLI Wafer list Component",
-=======
     "x-1621019-doli-custom-attachment": {
       "innerComponents": [],
       "uiBuilder": {
@@ -60,37 +9,11 @@
         ],
         "label": "DOLI Custom Attachment",
         "tileIcon": "./tile-icon/generic-tile-icon.svg",
-        "description": "DOLI Custom Attachment component for ServiceNow",
->>>>>>> 4111146 (Doli Validations)
+       "description": "DOLI Custom Attachment component for ServiceNow",
         "category": "primitive"
       },
       "properties": [
         {
-<<<<<<< HEAD
-          "name": "mode",
-          "label": "Mode",
-          "fieldType": "string"
-        },
-        {
-          "name": "wafer",
-          "label": "Wafer",
-          "fieldType": "string"
-        },
-        {
-          "name": "selected",
-          "label": "Selected",
-          "fieldType": "string"
-        },
-        {
-          "name": "operation",
-          "label": "Operation",
-          "fieldType": "string"
-        },
-        {
-          "name": "readonly",
-          "label": "Readonly",
-          "fieldType": "string"
-=======
           "name": "recordId",
           "label": "Record ID",
           "fieldType": "string"
@@ -132,14 +55,9 @@
         {
           "name": "ADD_COMMENT",
           "description": "Add work note to the record"
->>>>>>> 4111146 (Doli Validations)
         }
       ]
     }
   },
-<<<<<<< HEAD
-  "scopeName": "x_1851424_doli_c_0"
-=======
   "scopeName": "x_1621019_doli_c_1"
->>>>>>> 4111146 (Doli Validations)
 }

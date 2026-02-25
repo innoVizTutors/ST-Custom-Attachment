@@ -74,7 +74,6 @@ function decodeFileName(storedName) {
 }
 
 // Upload using OOTB Attachment API - properly creates full file content
-// For default extension files, the content is read and re-wrapped as a genuine
 // text/plain Blob so ServiceNow's MIME validation always passes.
 function uploadToSysAttachment(file, tableName, tableSysId) {
 	const uploadName = encodeFileName(file);
@@ -123,8 +122,7 @@ function fetchAttachments(tableName, tableSysId) {
 	// 	"  SysID: ",
 	// 	tableSysId,
 	// );
-	tableNm = tableName || "";
-	recId = tableSysId || "";
+
 	const q = `table_sys_id=${tableSysId}^table_name=${tableName}`;
 	const fields =
 		"sys_id,file_name,size_bytes,content_type,sys_created_on,sys_created_by";

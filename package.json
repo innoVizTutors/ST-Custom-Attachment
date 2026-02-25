@@ -1,14 +1,4 @@
 {
-<<<<<<< HEAD
-  "name": "doli-comp",
-  "version": "0.0.1",
-  "private": false,
-  "description": "Custom doli component",
-  "keywords": [
-    "ServiceNow",
-    "Next Experience UI Component",
-    "doli-comp"
-=======
   "name": "doli-custom-attachment",
   "version": "0.0.1",
   "private": false,
@@ -17,7 +7,6 @@
     "ServiceNow",
     "Next Experience UI Component",
     "doli-custom-attachment"
->>>>>>> 4111146 (Doli Validations)
   ],
   "readme": "./README.md",
   "engines": {
@@ -25,17 +14,13 @@
   },
   "module": "src/index.js",
   "dependencies": {
-<<<<<<< HEAD
-    "@servicenow/sass-kit": "latest",
-    "@servicenow/ui-core": "24.1.1",
-=======
     "@servicenow/now-button": "^19.8.2-ecd",
     "@servicenow/now-icon": "^19.8.2-ecd",
     "@servicenow/sass-kit": "latest",
-    "@servicenow/ui-core": "^24.1.1",
->>>>>>> 4111146 (Doli Validations)
+    "@servicenow/ui-core": "24.1.1",
     "@servicenow/ui-effect-http": "24.1.1",
-    "@servicenow/ui-renderer-snabbdom": "24.1.1"
+    "@servicenow/ui-renderer-snabbdom": "24.1.1",
+    "axios": "^1.13.5"
   },
   "devDependencies": {
     "@babel/runtime": "7.25.7",
