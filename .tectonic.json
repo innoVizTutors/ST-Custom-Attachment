@@ -1,7 +1,7 @@
 {
   "development": {
     "proxy": {
-      "origin": "http://localhost:8080",
+      "origin": "http://localhost:8081",
       "headers": {"Authorization": "Basic YWRtaW46YWRtaW4="},
       "proxies": ["/api", "/amb"],
       "timeout": 5000
