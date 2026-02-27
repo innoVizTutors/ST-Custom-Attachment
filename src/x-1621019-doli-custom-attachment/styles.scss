@@ -1,5 +1,7 @@
-
 @import '@servicenow/sass-kit/host';
+
+
+  // ─── Design tokens ────────────────────────────────────────────────────────────
 
 $color-bg:            #ffffff;
 $color-bg-subtle:     #f4f7fa;
@@ -71,6 +73,20 @@ $transition: all 0.18s ease;
   &__icon  { color: $color-text-muted; transition: $transition; }
   &__label { margin: 0; font-size: 14px; font-weight: 600; color: $color-text-primary; transition: $transition; }
   &__hint  { margin: 0; font-size: 12px; color: $color-text-muted; }
+}
+
+// ─── Toast stack ──────────────────────────────────────────────────────────────
+
+.toast-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.toast-stack .attachment-banner {
+  animation: fadein 0.2s ease both;
+  margin-top: 0; // override default banner margin since gap handles spacing
 }
 
 // ─── Banners ──────────────────────────────────────────────────────────────────

@@ -8,6 +8,6 @@ el.innerHTML = `
 		record-id="85071a1347c12200e0ef563dbb9a71c1"
 		table-name="incident"
 		read-only="false"
-		extensions="">
+		extensions="pdf,docx">
 	</x-1621019-doli-custom-attachment>
 `;
