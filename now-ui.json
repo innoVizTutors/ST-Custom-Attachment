@@ -1,0 +1,63 @@
+{
+  "components": {
+    "x-1851424-st-doli-attachment": {
+       "innerComponents": [],
+      "uiBuilder": {
+        "associatedTypes": [
+          "global.core", 
+          "global.landing-page"
+        ],
+        "label": "ST DOLI Attachment",
+        "tileIcon": "./tile-icon/generic-tile-icon.svg",
+       "description": "DOLI Custom Attachment component for ServiceNow",
+        "category": "custom"
+      },
+      "properties": [
+        {
+          "name": "recordId",
+          "label": "Record ID",
+          "fieldType": "string"
+        },
+        {
+          "name": "tableName",
+          "label": "Table Name",
+          "fieldType": "string"
+        },
+        {
+          "name": "readOnly",
+          "label": "Read Only",
+          "fieldType": "string"
+        },
+        {
+          "name": "extensions",
+          "label": "Allowed Extensions",
+          "fieldType": "string"
+        }
+      ],
+      "actions": [],
+      "dispatches": [
+        {
+          "name": "FETCH_PERMISSIONS",
+          "description": "Fetch user permissions for attachments"
+        },
+        {
+          "name": "FETCH_ATTACHMENTS",
+          "description": "Fetch list of attachments for the record"
+        },
+        {
+          "name": "UPLOAD_ATTACHMENT",
+          "description": "Upload a new attachment"
+        },
+        {
+          "name": "DELETE_ATTACHMENT_API",
+          "description": "Delete an attachment"
+        },
+        {
+          "name": "ADD_COMMENT",
+          "description": "Add work note to the record"
+        }
+      ]
+    }
+  },
+  "scopeName": "x_1851424_st_dol_1"
+}
