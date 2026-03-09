@@ -9,7 +9,7 @@
         ],
         "label": "ST DOLI Attachment",
         "tileIcon": "./tile-icon/generic-tile-icon.svg",
-       "description": "DOLI Custom Attachment component for ServiceNow",
+       "description": "ST DOLI Custom Attachment",
         "category": "custom"
       },
       "properties": [
